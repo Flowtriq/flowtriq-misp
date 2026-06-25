@@ -1,5 +1,7 @@
 # Flowtriq MISP Modules
 
+> **[Integration Guide](https://flowtriq.com/integrations/misp)** | **[Documentation](https://flowtriq.com/docs)** | **[Sign Up](https://flowtriq.com/signup)**
+
 MISP expansion and export modules for Flowtriq DDoS intelligence.
 
 ## Modules
@@ -22,6 +24,17 @@ Enriches IP address attributes with DDoS attack intelligence from Flowtriq. When
 Exports `ip-src` attributes from MISP events back to Flowtriq's threat intelligence pipeline. This lets MISP sharing communities feed curated attacker IPs into Flowtriq, where they inform real-time attack classification and blocking decisions.
 
 Only attributes with `to_ids=True` are exported. The module derives threat type and confidence from MISP event context (info field, tags, threat level).
+
+## Prerequisites
+
+These modules require a Flowtriq account with API access. The modules call two Flowtriq API endpoints:
+
+- **Expansion module** calls `POST /api/ip-lookup.php` for IP enrichment. This endpoint is available on all Flowtriq plans.
+- **Export module** calls `POST /api/v1/threat-intel/import` for pushing indicators back to Flowtriq. This endpoint requires a Flowtriq plan with threat intelligence import enabled.
+
+Both modules handle API errors gracefully. If the Flowtriq API is unreachable, returns a non-200 status, or the endpoint is not available, the module returns a descriptive error message to MISP without crashing.
+
+Get your API key from **Dashboard > Settings > API** at [flowtriq.com](https://flowtriq.com).
 
 ## Installation
 
@@ -133,6 +146,14 @@ flowtriq-misp/
   README.md
 ```
 
+## Get Started
+
+Start your free 14-day trial at [flowtriq.com/signup](https://flowtriq.com/signup).
+
 ## License
 
 MIT
+
+---
+
+Built by [Flowtriq](https://flowtriq.com) - Real-time DDoS detection and mitigation.
